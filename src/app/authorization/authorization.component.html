@@ -1,0 +1,9 @@
+<form>
+    <div class="form-group">
+        <input type="text" name="clientID" [(ngModel)]="clientID" class="form-control"
+                placeholder="Enter Client ID...">
+        <input type="text" name="clientSecret" [(ngModel)]="clientSecret" class="form-control"
+                placeholder="Enter Client Secret...">    
+        <button class="btn btn-primary" (click)="onClick()">Get Authorization</button>
+    </div>
+</form>

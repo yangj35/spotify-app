@@ -1,14 +1,3 @@
-<form>
-    <div class="form-group">
-        <input type="text" name="clientID" [(ngModel)]="clientID" class="form-control"
-                placeholder="Enter Client ID...">
-        <input type="text" name="clientSecret" [(ngModel)]="clientSecret" class="form-control"
-                placeholder="Enter Client Secret...">    
-        <button (click)="onClick()">Get Authorization</button>
-    </div>
-</form>
-
-
 <h1>Need Music?</h1>
 <p class="lead">Use the Spotify app to browse new releases and find music!</p>
 <form>
@@ -17,3 +6,19 @@
                 (keyup)="searchArtists()" placeholder="Search Music...">
     </div>
 </form>
+
+<div *ngIf="artists">
+    <div *ngFor="let artist of artists">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="artists well">
+                    <h4><a routerLink="/artist/{{artist.id}}">{{artist.name}}</a></h4>
+                    <div>
+                        <strong>Genres: </strong>
+                        <span *ngFor="let genre of artist.genres">{{genre}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

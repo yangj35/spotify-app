@@ -5,6 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
+import { AlbumComponent } from './album/album.component';
+import { ArtistComponent } from './artist/artist.component';
+import { AuthorizationComponent } from './authorization/authorization.component';
 import { NavbarComponent } from './home/navbar/navbar.component';
 import { SearchComponent } from './home/search/search.component';
 
@@ -13,6 +16,9 @@ import { SpotifyService } from './services/spotify.service';
 @NgModule({
   declarations: [
     AppComponent,
+    AlbumComponent,
+    ArtistComponent,
+    AuthorizationComponent,
     NavbarComponent,
     SearchComponent,
   ],

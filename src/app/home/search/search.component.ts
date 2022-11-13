@@ -6,11 +6,8 @@ import { SpotifyService } from 'src/app/services/spotify.service';
   templateUrl: 'search.component.html',
 })
 export class SearchComponent implements OnInit {
-  clientID: string;
-  clientSecret: string;
   searchStr: string;
-  token: any;
-  tokenType: any;
+  artists: any;
 
   constructor(private spotifyService: SpotifyService) {
 
@@ -21,17 +18,11 @@ export class SearchComponent implements OnInit {
   }
 
   searchArtists() {
-    this.spotifyService.searchArtists(this.searchStr, this.token)
-        .subscribe(res => {
-          console.log(res);
+    if (this.searchStr){
+    this.spotifyService.searchArtists(this.searchStr)
+        .subscribe(results => {
+          this.artists = results.artists.items;
         })
+    };
   }
-
-  onClick() {
-    console.log(this.clientID);
-    this.spotifyService.getAuthorization(this.clientID, this.clientSecret).subscribe((data: any) => {
-      this.token = data.access_token;
-    });
-  }
-
 }
