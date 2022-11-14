@@ -1,24 +1,23 @@
 <h1>Need Music?</h1>
-<p class="lead">Use the Spotify app to browse new releases and find music!</p>
+<p class="lead">Use SpotifyApp to browse new releases and find music!</p>
+
 <form>
     <div class="form-group">
-        <input type="text" name="searchStr" [(ngModel)]="searchStr" class="form-control"
-                (keyup)="searchArtists()" placeholder="Search Music...">
+        <input type="text" name="searchStr" class="form-control"
+                [(ngModel)]="searchStr"
+                (keyup)="searchArtists()"
+                [ngbTypeahead]="search"
+                [resultTemplate]="rt"
+                (selectItem)="onSelect($event)"
+                [inputFormatter]="formatter"
+                placeholder="Search Music...">
     </div>
 </form>
 
-<div *ngIf="artists">
-    <div *ngFor="let artist of artists">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="artists well">
-                    <h4><a routerLink="/artist/{{artist.id}}">{{artist.name}}</a></h4>
-                    <div>
-                        <strong>Genres: </strong>
-                        <span *ngFor="let genre of artist.genres">{{genre}}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
+<ng-template #rt let-r="result" let-t="term">
+        <img *ngIf="r.images.length > 0" [src]="r.images[0].url" class="me-1" style="width: 50px; float: left"/>
+        <i *ngIf="r.images.length == 0" class="fas fa-search me-1" style="width: 50px; text-align: center; float: left"></i>
+        <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight><br>
+        <span *ngFor="let genre of r.genres; let isLast=last"><small>{{genre}}{{isLast ? '' : ', '}}</small></span>
+</ng-template>

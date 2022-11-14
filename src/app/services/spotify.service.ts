@@ -91,6 +91,7 @@ export class SpotifyService {
         if (response.access_token || response.refresh_token){
             const d = new Date();
             this.tokenExpiryTime = d.getTime() + (response.expires_in * 1000);
+            localStorage.setItem("tokenExpiryTime", this.tokenExpiryTime);
             if (response.access_token){
                 this.accessToken = response.access_token;
                 localStorage.setItem("access_token", this.accessToken);
@@ -108,6 +109,7 @@ export class SpotifyService {
 
     callGetAPI(url: string): Observable<any> {
         const d = new Date();
+        this.tokenExpiryTime = localStorage.getItem("tokenExpiryTime");
         if (this.tokenExpiryTime <= d.getTime()) {
             this.refreshAccessToken();
         }
