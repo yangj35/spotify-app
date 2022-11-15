@@ -120,8 +120,8 @@ export class SpotifyService {
         });
     }
 
-    searchArtists(str: string): Observable<any> {
-        return this.callGetAPI('https://api.spotify.com/v1/search?q='+str+'&type=artist');
+    searchItems(str: string, type: string): Observable<any> {
+        return this.callGetAPI('https://api.spotify.com/v1/search?q='+str+'&type='+type);
     }
 
     getArtist(id: string): Observable<any> {

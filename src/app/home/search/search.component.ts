@@ -13,8 +13,10 @@ import { SpotifyService } from 'src/app/services/spotify.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class SearchComponent implements OnInit {
-  searchStr: string;
+  artistSearchStr: string;
+  trackSearchStr: string;
   artists: any;
+  tracks: any;
 
   constructor(
     private spotifyService: SpotifyService,
@@ -27,8 +29,8 @@ export class SearchComponent implements OnInit {
   }
 
   searchArtists() {
-    if (this.searchStr){
-    this.spotifyService.searchArtists(this.searchStr)
+    if (this.artistSearchStr){
+    this.spotifyService.searchItems(this.artistSearchStr, 'artist')
         .subscribe(results => {
           this.artists = results.artists.items;
           console.log(this.artists);
@@ -36,15 +38,37 @@ export class SearchComponent implements OnInit {
     };
   }
 
-  search = (text$: Observable<string>) =>
+  searchArtist = (text$: Observable<string>) =>
     text$.pipe(
-      debounceTime(400),
-      map(term => (term === '') ? [] : this.artists.slice(0, 10)),
+      debounceTime(200),
+      map(term => (term === '' || !this.artists) ? [] : this.artists.slice(0, 10)),
     );
 
-  formatter = (x: {name: string}) => x.name;
+  artistFormatter = (x: {name: string}) => x.name;
 
-  onSelect(event: any) {
+  onArtistSelect(event: any) {
     this.router.navigate(['artist/'+event.item.id]);
+  }
+
+  searchTracks() {
+    if (this.trackSearchStr){
+    this.spotifyService.searchItems(this.trackSearchStr, 'track')
+        .subscribe(results => {
+          this.tracks = results.tracks.items;
+          console.log(this.tracks);
+        })
+    };
+  }
+
+  searchTrack = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      map(term => (term === '' || !this.tracks) ? [] : this.tracks.slice(0, 10)),
+    );
+
+  trackFormatter = (x: {name: string}) => x.name;
+
+  onTrackSelect(event: any) {
+    this.router.navigate(['track/'+event.item.id]);
   }
 }
