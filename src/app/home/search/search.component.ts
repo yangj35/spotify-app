@@ -40,7 +40,7 @@ export class SearchComponent implements OnInit {
 
   searchArtist = (text$: Observable<string>) =>
     text$.pipe(
-      debounceTime(200),
+      debounceTime(500),
       map(term => (term === '' || !this.artists) ? [] : this.artists.slice(0, 10)),
     );
 
@@ -62,7 +62,7 @@ export class SearchComponent implements OnInit {
 
   searchTrack = (text$: Observable<string>) =>
     text$.pipe(
-      debounceTime(200),
+      debounceTime(500),
       map(term => (term === '' || !this.tracks) ? [] : this.tracks.slice(0, 10)),
     );
 

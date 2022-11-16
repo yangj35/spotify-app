@@ -1,0 +1,48 @@
+<div *ngIf="track" class="row">
+    <div class="col-sm-4">
+        <div *ngIf="track.album.images.length > 0">
+            <img class="album-thumb" src="{{track.album.images[0].url}}"><br><br>
+            <h2>{{track.name}}</h2>
+            <div *ngFor="let artist of track.artists; let isLast=last">
+                <p class="less-top-spacing">{{artist.name}}{{isLast ? '' : ', '}}</p>
+            </div>
+            <b>Popularity: {{track.popularity}}/100</b>
+            <div class="progress more-top-spacing">
+                <div class="progress-bar" role="progressbar" [style.width]="track.popularity + '%'" 
+                    aria-valuenow="track.popularity" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-8">
+        
+    </div>
+</div>
+
+
+<!--
+<div *ngIf="artist">
+    <header class="artist-header">
+        <div *ngIf="artist.images.length > 0">
+            <img class="artist-thumb circle" src="{{artist.images[0].url}}">
+        </div>
+        <h1>{{artist.name}}</h1>
+        <p *ngIf="artist.genres.length > 0">
+            Genres: <span *ngFor="let genre of artist.genres">{{genre}}</span>
+        </p>
+    </header>
+
+    <div class="artist-albums">
+        <div class="row">
+            <div *ngFor="let album of albums" class="col-md-3">
+                <div class="well album">
+                    <div *ngIf="album.images.length > 0">
+                        <img class="album-thumb img-thumbnail" src="{{album.images[0].url}}">
+                        <h4>{{album.name}}</h4>
+                        <button type="button" class="btn btn-primary" routerLink="/album/{{album.id}}">Album Details</button> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+-->

@@ -11,6 +11,7 @@ import { ArtistComponent } from './artist/artist.component';
 import { AuthorizationComponent } from './authorization/authorization.component';
 import { NavbarComponent } from './home/navbar/navbar.component';
 import { SearchComponent } from './home/search/search.component';
+import { TrackComponent } from './track/track.component';
 
 import { SpotifyService } from './services/spotify.service';
 
@@ -22,6 +23,7 @@ import { SpotifyService } from './services/spotify.service';
     AuthorizationComponent,
     NavbarComponent,
     SearchComponent,
+    TrackComponent,
   ],
   imports: [
     BrowserModule,

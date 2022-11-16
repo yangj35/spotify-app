@@ -135,4 +135,8 @@ export class SpotifyService {
     getAlbum(id: string): Observable<any> {
         return this.callGetAPI('https://api.spotify.com/v1/albums/'+id);
     }
+
+    getTrack(id: string): Observable<any> {
+        return this.callGetAPI('https://api.spotify.com/v1/tracks/'+id);
+    }
 }

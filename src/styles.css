@@ -11463,3 +11463,15 @@ body {
 .album-thumb {
   width: 100%;
 }
+
+.center {
+  text-align: center;
+}
+
+.less-top-spacing {
+  margin-top: -10px;
+}
+
+.more-top-spacing {
+  margin-top: 10px;
+}
