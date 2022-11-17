@@ -128,7 +128,7 @@ export class SpotifyService {
         return this.callGetAPI('https://api.spotify.com/v1/artists/'+id);
     }
 
-    getAlbums(artistId: string): Observable<any> {
+    getArtistAlbums(artistId: string): Observable<any> {
         return this.callGetAPI('https://api.spotify.com/v1/artists/'+artistId+'/albums');
     }
 

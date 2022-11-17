@@ -3,9 +3,14 @@
         <div *ngIf="track.album.images.length > 0">
             <img class="album-thumb" src="{{track.album.images[0].url}}"><br><br>
             <h2>{{track.name}}</h2>
-            <div *ngFor="let artist of track.artists; let isLast=last">
-                <p class="less-top-spacing">{{artist.name}}{{isLast ? '' : ', '}}</p>
-            </div>
+            <h5 class="less-top-spacing">
+                <span *ngFor="let artist of track.artists; let isLast=last">{{artist.name}}{{isLast ? '' : ', '}}</span>
+            </h5>
+            <h6 class="less-bottom-spacing">Album: {{track.album.name}}<span *ngIf="track.album.album_type!='album'"> - {{track.album.album_type | titlecase}}</span></h6>
+            <h6 *ngIf="artist && artist.genres.length > 0" class="less-bottom-spacing">
+                Genres: <span *ngFor="let genre of artist.genres; let isLast=last">{{genre | titlecase}}{{isLast ? '' : ', '}}</span>
+            </h6>
+            <h6>Date Released: {{convertDate(track.album.release_date)}}</h6>
             <b>Popularity: {{track.popularity}}/100</b>
             <div class="progress more-top-spacing">
                 <div class="progress-bar" role="progressbar" [style.width]="track.popularity + '%'" 
@@ -14,7 +19,7 @@
         </div>
     </div>
     <div class="col-sm-8">
-        
+        {{lyrics}}
     </div>
 </div>
 

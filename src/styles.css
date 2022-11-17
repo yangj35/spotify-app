@@ -11472,6 +11472,10 @@ body {
   margin-top: -10px;
 }
 
+.less-bottom-spacing {
+  margin-bottom: 0px;
+}
+
 .more-top-spacing {
   margin-top: 10px;
 }
