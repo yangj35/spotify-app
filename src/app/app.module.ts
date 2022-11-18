@@ -14,6 +14,7 @@ import { SearchComponent } from './home/search/search.component';
 import { TrackComponent } from './track/track.component';
 
 import { SpotifyService } from './services/spotify.service';
+import { YoutubeService } from './services/youtube.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,10 @@ import { SpotifyService } from './services/spotify.service';
     AppRoutingModule,
     NgbModule,
   ],
-  providers: [SpotifyService],
+  providers: [
+    SpotifyService,
+    YoutubeService,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

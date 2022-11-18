@@ -1,9 +1,11 @@
 <form>
     <div class="form-group">
         <input type="text" name="clientID" [(ngModel)]="clientID" class="form-control"
-                placeholder="Enter Client ID...">
+                placeholder="Enter Spotify Client ID...">
         <input type="text" name="clientSecret" [(ngModel)]="clientSecret" class="form-control"
-                placeholder="Enter Client Secret...">    
+                placeholder="Enter Spotify Client Secret...">
+        <input type="text" name="apiKey" [(ngModel)]="apiKey" class="form-control"
+                placeholder="Enter Google API key...">    
         <button class="btn btn-primary" (click)="onClick()">Get Authorization</button>
     </div>
 </form>

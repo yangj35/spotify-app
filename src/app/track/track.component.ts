@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 import { map } from 'rxjs/operators';
 
 import { SpotifyService } from '../services/spotify.service';
+import { YoutubeService } from '../services/youtube.service';
 
 @Component({
   selector: 'track',
@@ -12,11 +14,13 @@ export class TrackComponent implements OnInit {
     id: string;
     track: any;
     artist: any;
-    lyrics: any;
+    videoUrl: any;
 
     constructor (
         private spotifyService: SpotifyService,
-        private route: ActivatedRoute,) {
+        private youtubeService: YoutubeService,
+        private route: ActivatedRoute,
+        private domSanitizer: DomSanitizer,) {
 
     }
 
@@ -30,6 +34,12 @@ export class TrackComponent implements OnInit {
                         this.spotifyService.getArtist(this.track.artists[0].id)
                             .subscribe(artist => {
                                 this.artist = artist;
+                            });
+                        
+                        this.youtubeService.searchYoutube(this.track.name + ' lyrics')
+                            .subscribe(videos => {
+                                let url = 'https://www.youtube.com/embed/'+videos.items[0].id.videoId;
+                                this.videoUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(url);
                             });
                     });
             });
