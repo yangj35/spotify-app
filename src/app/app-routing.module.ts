@@ -10,7 +10,7 @@ import { AuthorizationComponent } from './authorization/authorization.component'
 import { TrackComponent } from './track/track.component';
 
 const routes: Routes = [
-  { path: '', component: AppComponent },
+  { path: '', component: SearchComponent },
   { path: 'authorization', component: AuthorizationComponent },
   { path: 'search', component: SearchComponent },
   { path: 'about', component: AboutComponent },

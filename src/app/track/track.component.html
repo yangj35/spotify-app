@@ -1,12 +1,15 @@
 <div *ngIf="track" class="row">
     <div class="col-sm-4">
         <div *ngIf="track.album.images.length > 0">
-            <img class="album-thumb" src="{{track.album.images[0].url}}"><br><br>
+            <img class="album-thumb" (click)="onAlbumSelect()" role="button" src="{{track.album.images[0].url}}"><br><br>
             <h2>{{track.name}}</h2>
             <h5 class="less-top-spacing">
-                <span *ngFor="let artist of track.artists; let isLast=last">{{artist.name}}{{isLast ? '' : ', '}}</span>
+                <span *ngFor="let artist of track.artists; let isLast=last" class="text-hover" (click)="onArtistSelect()" role="button">
+                    {{artist.name}}{{isLast ? '' : ', '}}</span>
             </h5>
-            <h6 class="less-bottom-spacing">Album: {{track.album.name}}<span *ngIf="track.album.album_type!='album'"> - {{track.album.album_type | titlecase}}</span></h6>
+            <h6 class="less-bottom-spacing">
+                Album: <span class="text-hover" (click)="onAlbumSelect()" role="button">{{track.album.name}}</span>
+                <span *ngIf="track.album.album_type!='album'"> - {{track.album.album_type | titlecase}}</span></h6>
             <h6 *ngIf="artist && artist.genres.length > 0" class="less-bottom-spacing">
                 Genres: <span *ngFor="let genre of artist.genres; let isLast=last">{{genre | titlecase}}{{isLast ? '' : ', '}}</span>
             </h6>
@@ -19,37 +22,43 @@
         </div>
     </div>
     <div class="col-sm-8">
-        <div class="video-circle">
-            <iframe *ngIf="videoUrl" [src]="videoUrl" frameborder="0" width="100%" height="100%" allowfullscreen></iframe>
-        </div>
-    </div>
-</div>
-
-
-<!--
-<div *ngIf="artist">
-    <header class="artist-header">
-        <div *ngIf="artist.images.length > 0">
-            <img class="artist-thumb circle" src="{{artist.images[0].url}}">
-        </div>
-        <h1>{{artist.name}}</h1>
-        <p *ngIf="artist.genres.length > 0">
-            Genres: <span *ngFor="let genre of artist.genres">{{genre}}</span>
-        </p>
-    </header>
-
-    <div class="artist-albums">
-        <div class="row">
-            <div *ngFor="let album of albums" class="col-md-3">
-                <div class="well album">
-                    <div *ngIf="album.images.length > 0">
-                        <img class="album-thumb img-thumbnail" src="{{album.images[0].url}}">
-                        <h4>{{album.name}}</h4>
-                        <button type="button" class="btn btn-primary" routerLink="/album/{{album.id}}">Album Details</button> 
-                    </div>
+        <ul class="nav nav-tabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" data-bs-toggle="tab" href="#lyrics" aria-selected="true" role="tab">Lyrics</a>
+            </li>
+            <li class="nav-item" role="presentation">
+                <a class="nav-link" data-bs-toggle="tab" href="#recommendations" aria-selected="false" tabindex="-1" role="tab">Recommendations</a>
+            </li>
+        </ul>
+        <div class="tab-content" style="width:100%; height:100%;">
+            <div class="tab-pane fade active show track-tab-content" id="lyrics" role="tabpanel">
+                <div *ngIf="videoUrl" class="video-circle">
+                    <iframe [src]="videoUrl" frameborder="0" width="100%" height="100%" allowfullscreen></iframe>
                 </div>
+                <div *ngIf="!videoUrl" style="text-align: center">
+                    <br><p>Lyric video was not found.</p>
+                    <p>Click <a href="{{track.preview_url}}" target="_blank">here</a> for a track preview!</p>
+                </div>
+            </div>
+            <div class="tab-pane fade track-tab-content" id="recommendations" role="tabpanel">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Title</th>
+                            <th scope="col"> Artist</th>
+                        </tr>
+                    </thead>
+                    <tbody *ngIf="recommendations">
+                        <tr *ngFor="let recommendation of recommendations; let i = index"
+                        (click)="onTrackSelect(recommendation)" role="button">
+                            <td>{{i+1}}</td>
+                            <th scope="row">{{recommendation.name}}</th>
+                            <td>{{recommendation.artists[0].name}}</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 </div>
--->

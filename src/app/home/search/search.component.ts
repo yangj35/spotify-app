@@ -33,7 +33,6 @@ export class SearchComponent implements OnInit {
     this.spotifyService.searchItems(this.artistSearchStr, 'artist')
         .subscribe(results => {
           this.artists = results.artists.items;
-          console.log(this.artists);
         })
     };
   }
@@ -55,7 +54,6 @@ export class SearchComponent implements OnInit {
     this.spotifyService.searchItems(this.trackSearchStr, 'track')
         .subscribe(results => {
           this.tracks = results.tracks.items;
-          console.log(this.tracks);
         })
     };
   }

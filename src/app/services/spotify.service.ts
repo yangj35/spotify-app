@@ -34,8 +34,7 @@ export class SpotifyService {
                 this.router.navigate(['authorization']);
             }
             else {
-                // we have an access token so present search section
-                this.router.navigate(['search']);
+                // we have an access token so present search section so do nothing
             }
         }
     }
@@ -138,5 +137,9 @@ export class SpotifyService {
 
     getTrack(id: string): Observable<any> {
         return this.callGetAPI('https://api.spotify.com/v1/tracks/'+id);
+    }
+
+    getRecommendations(artistIds: string, genresIds: string, trackIds: string) {
+        return this.callGetAPI('https://api.spotify.com/v1/recommendations?seed_artists='+artistIds+'&seed_genres='+genresIds+'&seed_tracks='+trackIds);
     }
 }
