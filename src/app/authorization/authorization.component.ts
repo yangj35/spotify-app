@@ -12,6 +12,9 @@ export class AuthorizationComponent implements OnInit {
   clientSecret: string;
   apiKey: string;
 
+  allFilled: boolean;
+  isLoggedIn: boolean;
+
   constructor(
     private spotifyService: SpotifyService,
     private youtubeService: YoutubeService,) {
@@ -19,11 +22,14 @@ export class AuthorizationComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+    this.isLoggedIn = this.spotifyService.isLoggedIn() && this.youtubeService.isLoggedIn();
   }
 
   onClick() {
-    this.spotifyService.requestAuthorization(this.clientID, this.clientSecret);
-    this.youtubeService.requestAuthorization(this.apiKey);
+    this.allFilled = (this.clientSecret && this.clientID && this.apiKey) ? true : false;
+    if (this.allFilled) {
+      this.spotifyService.requestAuthorization(this.clientID, this.clientSecret);
+      this.youtubeService.requestAuthorization(this.apiKey);
+    }
   }
 }

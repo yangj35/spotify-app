@@ -14,6 +14,15 @@ export class YoutubeService {
 
     }
 
+    isLoggedIn() {
+        this.apiKey = localStorage.getItem("api_key");
+        return this.apiKey;
+    }
+
+    logout() {
+        localStorage.removeItem("api_key");
+    }
+
     requestAuthorization (apiKey: string) {
         localStorage.setItem("api_key", apiKey);
     }

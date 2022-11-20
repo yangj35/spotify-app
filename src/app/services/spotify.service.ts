@@ -12,12 +12,24 @@ export class SpotifyService {
     private refreshToken: any;
     private tokenExpiryTime: any;
 
-    private redirectUri = 'http://localhost:4200/'
+    private redirectUri = 'http://localhost:4200'
 
     constructor(
         private http: HttpClient,
         private router: Router) {
 
+    }
+
+    isLoggedIn() {
+        return localStorage.getItem("access_token") ? true : false;
+    }
+
+    logout() {
+        localStorage.removeItem("client_id");
+        localStorage.removeItem("client_secret");
+        localStorage.removeItem("access_token");
+        localStorage.removeItem("refresh_token");
+        localStorage.removeItem("tokenExpiryTime");
     }
 
     onPageLoad() {
@@ -34,7 +46,8 @@ export class SpotifyService {
                 this.router.navigate(['authorization']);
             }
             else {
-                // we have an access token so present search section so do nothing
+                // we have an access token so present search section
+                this.router.navigate([''])
             }
         }
     }

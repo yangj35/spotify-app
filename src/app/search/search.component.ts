@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 
 
 import { SpotifyService } from 'src/app/services/spotify.service';
+import { YoutubeService } from 'src/app/services/youtube.service';
 
 @Component({
   selector: 'search',
@@ -13,6 +14,8 @@ import { SpotifyService } from 'src/app/services/spotify.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class SearchComponent implements OnInit {
+  isLoggedIn: boolean;
+
   artistSearchStr: string;
   trackSearchStr: string;
   artists: any;
@@ -20,12 +23,13 @@ export class SearchComponent implements OnInit {
 
   constructor(
     private spotifyService: SpotifyService,
+    private youtubeService: YoutubeService,
     private router: Router) {
 
   }
 
   ngOnInit() {
-
+    this.isLoggedIn = this.spotifyService.isLoggedIn() && this.youtubeService.isLoggedIn();
   }
 
   searchArtists() {

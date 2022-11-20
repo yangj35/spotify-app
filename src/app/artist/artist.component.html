@@ -1,4 +1,6 @@
-<div *ngIf="artist">
+<navbar></navbar>
+
+<div *ngIf="artist" class="main container">
     <header class="artist-header">
         <div *ngIf="artist.images.length > 0">
             <img class="artist-thumb circle" src="{{artist.images[0].url}}">

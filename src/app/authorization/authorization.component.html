@@ -1,11 +1,23 @@
-<form>
-    <div class="form-group">
-        <input type="text" name="clientID" [(ngModel)]="clientID" class="form-control"
-                placeholder="Enter Spotify Client ID...">
-        <input type="text" name="clientSecret" [(ngModel)]="clientSecret" class="form-control"
-                placeholder="Enter Spotify Client Secret...">
-        <input type="text" name="apiKey" [(ngModel)]="apiKey" class="form-control"
-                placeholder="Enter Google API key...">    
-        <button class="btn btn-primary" (click)="onClick()">Get Authorization</button>
-    </div>
-</form>
+<navbar></navbar>
+
+<div class="main container">
+        <div *ngIf="isLoggedIn" class="alert alert-dismissible alert-success">
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                <strong>You are already logged in!</strong>
+        </div>
+        <form>
+        <div class="form-group">
+                <input type="text" name="clientID" [disabled]="isLoggedIn" [(ngModel)]="clientID" class="form-control"
+                        placeholder="Enter Spotify Client ID...">
+                <input type="text" name="clientSecret" [disabled]="isLoggedIn" [(ngModel)]="clientSecret" class="form-control"
+                        placeholder="Enter Spotify Client Secret...">
+                <input type="text" name="apiKey" [disabled]="isLoggedIn" [(ngModel)]="apiKey" class="form-control"
+                        placeholder="Enter Google API key...">    
+                <button class="btn btn-primary" [disabled]="isLoggedIn" (click)="onClick()">Login</button>
+        </div>
+        <div *ngIf="allFilled === false" class="alert alert-dismissible alert-danger">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" (click)="allFilled=!allFilled"></button>
+                <strong>Please fill in all fields to sign in!</strong>
+        </div>
+        </form>
+</div>
