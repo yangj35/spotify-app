@@ -45,6 +45,9 @@ export class SpotifyService {
             this.router.navigate(['']);
             this.isFirstLoadAfterLogin = false;
         }
+        else if (!this.accessToken) {
+            this.router.navigate(['']);
+        }
     }
 
     requestAuthorization(clientID: string, clientSecret: string) {
