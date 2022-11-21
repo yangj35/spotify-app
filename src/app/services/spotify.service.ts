@@ -12,6 +12,8 @@ export class SpotifyService {
     private refreshToken: any;
     private tokenExpiryTime: any;
 
+    isFirstLoadAfterLogin: boolean;
+
     private redirectUri = 'http://localhost:4200'
 
     constructor(
@@ -38,17 +40,9 @@ export class SpotifyService {
         if (window.location.search.length > 0) {
             this.handleRedirect();
         }
-        else {
-            this.accessToken = localStorage.getItem("access_token");
-
-            if (!this.accessToken) {
-                // we don't have an access token so present token section
-                this.router.navigate(['authorization']);
-            }
-            else {
-                // we have an access token so present search section
-                this.router.navigate([''])
-            }
+        else if (this.isFirstLoadAfterLogin) {
+                this.router.navigate(['']);
+                this.isFirstLoadAfterLogin = false;
         }
     }
 
@@ -112,6 +106,7 @@ export class SpotifyService {
                 this.refreshToken = response.refresh_token;
                 localStorage.setItem("refresh_token", this.refreshToken);
             }
+            this.isFirstLoadAfterLogin = true;
             this.onPageLoad();
         }
         else {

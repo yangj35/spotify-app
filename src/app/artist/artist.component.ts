@@ -30,7 +30,13 @@ export class ArtistComponent implements OnInit {
 
                 this.spotifyService.getArtistAlbums(id)
                     .subscribe(albums => {
-                        this.albums = albums.items;
+                        let results: any[] = [];
+                        for (let album of albums.items) {
+                            if (!results.find(res => {return res.name === album.name})) {
+                                results.push(album);
+                            }
+                        }
+                        this.albums = results;
                     });
             });
     }
