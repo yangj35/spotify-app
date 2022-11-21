@@ -11,6 +11,8 @@ export class NavbarComponent implements OnInit {
   isLoggedIn: boolean;
   logoutClicked: boolean;
 
+  user: any;
+
   constructor(
     private spotifyService: SpotifyService,
     private youtubeService: YoutubeService) {
@@ -19,6 +21,11 @@ export class NavbarComponent implements OnInit {
 
     ngOnInit() {
       this.isLoggedIn = this.spotifyService.isLoggedIn() && this.youtubeService.isLoggedIn();
+      if (this.isLoggedIn) {
+        this.spotifyService.getUser().subscribe(user => {
+          this.user =  user;
+        });
+      }
     }
 
     onClickLogout() {

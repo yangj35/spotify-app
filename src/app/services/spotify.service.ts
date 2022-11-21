@@ -37,12 +37,13 @@ export class SpotifyService {
     onPageLoad() {
         this.clientID = localStorage.getItem("client_id");
         this.clientSecret = localStorage.getItem("client_secret");
+        this.accessToken = localStorage.getItem("access_token");
         if (window.location.search.length > 0) {
             this.handleRedirect();
         }
         else if (this.isFirstLoadAfterLogin) {
-                this.router.navigate(['']);
-                this.isFirstLoadAfterLogin = false;
+            this.router.navigate(['']);
+            this.isFirstLoadAfterLogin = false;
         }
     }
 
@@ -147,7 +148,11 @@ export class SpotifyService {
         return this.callGetAPI('https://api.spotify.com/v1/tracks/'+id);
     }
 
-    getRecommendations(artistIds: string, genresIds: string, trackIds: string) {
+    getRecommendations(artistIds: string, genresIds: string, trackIds: string): Observable<any> {
         return this.callGetAPI('https://api.spotify.com/v1/recommendations?seed_artists='+artistIds+'&seed_genres='+genresIds+'&seed_tracks='+trackIds);
+    }
+
+    getUser(): Observable<any> {
+        return this.callGetAPI('https://api.spotify.com/v1/me');
     }
 }

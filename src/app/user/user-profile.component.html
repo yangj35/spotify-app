@@ -1,0 +1,20 @@
+<navbar></navbar>
+
+<div class="main container">
+    <div class="row">
+        <div *ngIf="user">
+            <img class="me-2 circle" style="float: left;" src="{{user.images[0].url}}">
+            <br><br><br><br><p class="less-bottom-spacing" style="text-transform: capitalize;">{{user.product}} {{user.type}}</p>
+            <h1>{{user.display_name}}</h1>
+            <h2>{{user.email}}</h2>
+            <p>{{user.followers.total}} Followers</p>
+            <a class="btn btn-danger" href="{{user.external_urls.spotify}}" role="button" target="_blank">Go to Spotify</a>
+        </div>
+    </div>
+    <div class="row">
+        Top Artists:
+    </div>
+    <div class="row">
+        Top Tracks:
+    </div>
+</div>

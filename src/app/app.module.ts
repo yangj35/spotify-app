@@ -14,6 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SearchComponent } from './search/search.component';
 import { TrackComponent } from './track/track.component';
+import { UserProfileComponent } from './user/user-profile.component';
 
 import { SpotifyService } from './services/spotify.service';
 import { YoutubeService } from './services/youtube.service';
@@ -29,6 +30,7 @@ import { YoutubeService } from './services/youtube.service';
     NavbarComponent,
     SearchComponent,
     TrackComponent,
+    UserProfileComponent,
   ],
   imports: [
     BrowserModule,
