@@ -53,8 +53,9 @@ export class SpotifyService {
     requestAuthorization(clientID: string, clientSecret: string) {
         localStorage.setItem("client_id", clientID);
         localStorage.setItem("client_secret", clientSecret);
+        let scope = 'user-read-email user-read-private user-top-read user-read-recently-played';
         const url = 'https://accounts.spotify.com/authorize?'+'client_id='+clientID+
-            '&response_type=code&redirect_uri='+this.redirectUri+'&show_dialog=true';
+            '&response_type=code&scope='+scope+'&redirect_uri='+this.redirectUri+'&show_dialog=true';
         window.location.href = url;
     }
 
@@ -157,5 +158,9 @@ export class SpotifyService {
 
     getUser(): Observable<any> {
         return this.callGetAPI('https://api.spotify.com/v1/me');
+    }
+
+    getUserTopItems(type: string): Observable<any> {
+        return this.callGetAPI('https://api.spotify.com/v1/me/top/'+type);
     }
 }

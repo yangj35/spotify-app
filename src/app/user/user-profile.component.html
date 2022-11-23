@@ -6,15 +6,40 @@
             <img class="me-2 circle" style="float: left;" src="{{user.images[0].url}}">
             <br><br><br><br><p class="less-bottom-spacing" style="text-transform: capitalize;">{{user.product}} {{user.type}}</p>
             <h1>{{user.display_name}}</h1>
-            <h2>{{user.email}}</h2>
+            <h6>{{user.email}}</h6>
             <p>{{user.followers.total}} Followers</p>
             <a class="btn btn-danger" href="{{user.external_urls.spotify}}" role="button" target="_blank">Go to Spotify</a>
         </div>
-    </div>
+    </div><br>
+    <div *ngIf="artists" class="row">
+        <h4>Top Artists:</h4>
+        <div *ngFor="let artist of artists" class="col-sm-2">
+            <div class="well album" (click)="onArtistSelect(artist)" role="button">
+                <img class="album-thumb circle" src="{{artist.images[0].url}}">
+                <h5 class="album-truncate" title="{{artist.name}}">{{artist.name}}</h5>
+                <p class="less-top-spacing" style="text-transform: capitalize;">{{artist.type}}</p>
+            </div>
+        </div>
+    </div><br>
     <div class="row">
-        Top Artists:
-    </div>
-    <div class="row">
-        Top Tracks:
+        <h4>Top Tracks:</h4>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Duration</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let track of tracks; let i = index" (click)="onTrackSelect(track)" role="button">
+                    <td>{{i+1}}</td>
+                    <th scope="row">{{track.name}}<br>
+                        <small *ngFor="let artist of track.artists; let isLast=last">{{artist.name}}{{isLast ? '' : ', '}}</small>
+                    </th>
+                    <td>{{convertDuration(track.duration_ms)}}</td> 
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
