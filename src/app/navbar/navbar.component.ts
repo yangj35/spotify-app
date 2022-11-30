@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit {
     ngOnInit() {
       this.isLoggedIn = this.spotifyService.isLoggedIn() && this.youtubeService.isLoggedIn();
       if (this.isLoggedIn) {
-        this.spotifyService.getUser().subscribe(user => {
+        this.spotifyService.getCurrentUser().subscribe(user => {
           this.user =  user;
         });
       }

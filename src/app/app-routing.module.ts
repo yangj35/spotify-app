@@ -8,6 +8,8 @@ import { AppComponent } from './app.component';
 import { ArtistComponent } from './artist/artist.component';
 import { AuthorizationComponent } from './authorization/authorization.component';
 import { HomeComponent } from './home/home.component';
+import { PlaylistComponent } from './playlists/playlist.component';
+import { PlaylistsComponent } from './playlists/playlists.component';
 import { TrackComponent } from './track/track.component';
 import { UserProfileComponent } from './user/user-profile.component';
 
@@ -15,6 +17,8 @@ const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'authorization', component: AuthorizationComponent },
   { path: 'search', component: SearchComponent },
+  { path: 'playlist/:id', component: PlaylistComponent },
+  { path: 'playlists', component: PlaylistsComponent },
   { path: 'about', component: AboutComponent },
   { path: 'artist/:id', component: ArtistComponent},
   { path: 'album/:id', component: AlbumComponent},

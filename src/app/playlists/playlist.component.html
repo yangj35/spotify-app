@@ -1,0 +1,17 @@
+<navbar></navbar>
+
+<div class="main container">
+    <div class="row">
+        <div *ngIf="playlist">
+            <img class="me-2 circle image-resize" style="float: left;" src="{{playlist.images[0].url}}">
+            <br><br><br><br><p class="less-bottom-spacing" style="text-transform: capitalize;">{{playlist.type}}</p>
+            <h1>{{playlist.name}}</h1>
+            <h6>{{playlist.owner.display_name}}</h6>
+            <p>{{playlist.tracks.total}} Songs &#8226; {{playlist.followers.total}} Followers</p>
+        </div>
+    </div><br>
+    <div *ngIf="playlist && playlist.tracks" class="row">
+        <h4>Tracks:</h4>
+        <track-table [tracks]="tracks"></track-table>
+    </div>
+</div>

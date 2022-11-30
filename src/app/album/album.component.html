@@ -18,24 +18,7 @@
                 <h5>Release Date: {{album.release_date}}</h5>
                 <a class="btn btn-primary" href="{{album.external_urls.spotify}}"> View In Spotify</a><br><br>
                 <h2>Album Tracks</h2>
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Title</th>
-                            <th scope="col">Duration</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let track of album.tracks.items" (click)="onTrackSelect(track)" role="button">
-                            <td>{{track.track_number}}</td>
-                            <th scope="row">{{track.name}}<br>
-                                <small *ngFor="let artist of track.artists; let isLast=last">{{artist.name}}{{isLast ? '' : ', '}}</small>
-                            </th>
-                            <td>{{convertDuration(track.duration_ms)}}</td> 
-                        </tr>
-                    </tbody>
-                </table>
+                <track-table [tracks]="album.tracks.items"></track-table>
             </div>
         </div>
     </header>

@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 
 import { SpotifyService } from '../services/spotify.service';
 
 @Component({
-  selector: 'album',
-  templateUrl: 'album.component.html',
+  selector: 'playlist',
+  templateUrl: 'playlist.component.html',
 })
-export class AlbumComponent implements OnInit {
-    id: string;
-    album: any;
+
+export class PlaylistComponent implements OnInit {
+    playlist: any;
+    tracks: any;
 
     constructor(
         private spotifyService: SpotifyService,
         private route: ActivatedRoute,
-        private router: Router,) {
+    ) {
 
     }
 
@@ -24,9 +24,10 @@ export class AlbumComponent implements OnInit {
         this.route.params.pipe(
             map((params: any) => params['id']))
             .subscribe(id => {
-                this.spotifyService.getAlbum(id)
-                    .subscribe(album => {
-                        this.album = album;
+                this.spotifyService.getPlaylist(id)
+                    .subscribe(playlist => {
+                        this.playlist = playlist;
+                        this.tracks = playlist.tracks.items.map((tracks: any) => tracks.track);
                     });
             });
     }

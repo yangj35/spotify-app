@@ -1,0 +1,18 @@
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Title</th>
+            <th scope="col">Duration</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let track of tracks; let i = index" (click)="onTrackSelect(track)" role="button">
+            <td>{{i+1}}</td>
+            <th scope="row">{{track.name}}<br>
+                <small *ngFor="let artist of track.artists; let isLast=last">{{artist.name}}{{isLast ? '' : ', '}}</small>
+            </th>
+            <td>{{convertDuration(track.duration_ms)}}</td> 
+        </tr>
+    </tbody>
+</table>

@@ -12,8 +12,11 @@ import { ArtistComponent } from './artist/artist.component';
 import { AuthorizationComponent } from './authorization/authorization.component';
 import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { PlaylistComponent } from './playlists/playlist.component';
+import { PlaylistsComponent } from './playlists/playlists.component';
 import { SearchComponent } from './search/search.component';
 import { TrackComponent } from './track/track.component';
+import { TrackTableComponent } from './common/track-table.component';
 import { UserProfileComponent } from './user/user-profile.component';
 
 import { SpotifyService } from './services/spotify.service';
@@ -28,8 +31,11 @@ import { YoutubeService } from './services/youtube.service';
     AuthorizationComponent,
     HomeComponent,
     NavbarComponent,
+    PlaylistComponent,
+    PlaylistsComponent,
     SearchComponent,
     TrackComponent,
+    TrackTableComponent,
     UserProfileComponent,
   ],
   imports: [

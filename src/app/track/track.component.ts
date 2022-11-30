@@ -61,10 +61,6 @@ export class TrackComponent implements OnInit {
         this.router.navigate(['artist/'+this.track.artists[0].id]);
     }
 
-    onTrackSelect(recommendation: any) {
-        this.router.navigate(['track/'+recommendation.id]);
-    }
-
     convertDate(date: string) {
         var newDate = '';
         if (date.length == 10) {

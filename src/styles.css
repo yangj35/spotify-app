@@ -11429,6 +11429,11 @@ body {
   clip-path: circle();
 }
 
+.image-resize {
+  width: 320px;
+  height: auto;
+}
+
 .video-circle {
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
