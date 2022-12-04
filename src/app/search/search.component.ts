@@ -14,12 +14,12 @@ import { YoutubeService } from 'src/app/services/youtube.service';
   encapsulation: ViewEncapsulation.None,
 })
 export class SearchComponent implements OnInit {
-  isLoggedIn: boolean;
-
   artistSearchStr: string;
   trackSearchStr: string;
+  playlistSearchStr: string;
   artists: any;
   tracks: any;
+  playlists: any;
 
   constructor(
     private spotifyService: SpotifyService,
@@ -29,15 +29,14 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isLoggedIn = this.spotifyService.isLoggedIn() && this.youtubeService.isLoggedIn();
   }
 
   searchArtists() {
-    if (this.artistSearchStr){
-    this.spotifyService.searchItems(this.artistSearchStr, 'artist')
-        .subscribe(results => {
-          this.artists = results.artists.items;
-        })
+    if (this.artistSearchStr) {
+      this.spotifyService.searchItems(this.artistSearchStr, 'artist')
+          .subscribe(results => {
+            this.artists = results.artists.items;
+          })
     };
   }
 
@@ -54,11 +53,11 @@ export class SearchComponent implements OnInit {
   }
 
   searchTracks() {
-    if (this.trackSearchStr){
-    this.spotifyService.searchItems(this.trackSearchStr, 'track')
-        .subscribe(results => {
-          this.tracks = results.tracks.items;
-        })
+    if (this.trackSearchStr) {
+      this.spotifyService.searchItems(this.trackSearchStr, 'track')
+          .subscribe(results => {
+            this.tracks = results.tracks.items;
+          })
     };
   }
 
@@ -72,5 +71,26 @@ export class SearchComponent implements OnInit {
 
   onTrackSelect(event: any) {
     this.router.navigate(['track/'+event.item.id]);
+  }
+
+  searchPlaylists() {
+    if (this.playlistSearchStr) {
+      this.spotifyService.searchItems(this.playlistSearchStr, 'playlist')
+          .subscribe(results => {
+            this.playlists = results.playlists.items;
+          })
+    };
+  }
+
+  searchPlaylist = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(500),
+      map(term => (term === '' || !this.playlists) ? [] : this.playlists.slice(0, 10)),
+    );
+
+  playlistFormatter = (x: {name: string}) => x.name;
+
+  onPlaylistSelect(event: any) {
+    this.router.navigate(['playlist/'+event.item.id]);
   }
 }

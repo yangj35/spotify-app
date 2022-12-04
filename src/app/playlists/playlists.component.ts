@@ -16,10 +16,12 @@ export class PlaylistsComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.spotifyService.getCurrentUserPlaylists()
-                    .subscribe(playlists => {
-                        this.playlists = playlists.items;
-                    });
+        if (this.spotifyService.isLoggedIn()){
+            this.spotifyService.getCurrentUserPlaylists()
+                        .subscribe(playlists => {
+                            this.playlists = playlists.items;
+                        });
+        }
     }
 
 }

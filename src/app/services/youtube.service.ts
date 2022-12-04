@@ -3,10 +3,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Buffer } from 'buffer';
 import { Router } from '@angular/router';
+import { variables } from 'src/environments/variables';
 
 @Injectable()
 export class YoutubeService {
-    private apiKey: any;
+    private apiKey = variables.GOOGLE_API_KEY;
 
     constructor(
         private http: HttpClient,
@@ -15,20 +16,13 @@ export class YoutubeService {
     }
 
     isLoggedIn() {
-        this.apiKey = localStorage.getItem("api_key");
-        return this.apiKey;
+        return this.apiKey ? true: false;
     }
 
     logout() {
-        localStorage.removeItem("api_key");
-    }
-
-    requestAuthorization (apiKey: string) {
-        localStorage.setItem("api_key", apiKey);
     }
 
     searchYoutube (str: string): Observable<any> {
-        this.apiKey = localStorage.getItem("api_key");
         return this.http.get('https://www.googleapis.com/youtube/v3/search?q='
             +str+'&type=video'+'&key='+this.apiKey);
     }

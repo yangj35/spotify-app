@@ -1,31 +1,24 @@
 <navbar></navbar>
 
 <div class="main container">
-    <div *ngIf="!isLoggedIn" class="alert alert-dismissible alert-danger">
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        <strong>Please sign in to continue using SpotifyApp!</strong>
-    </div>
-
-    <h1>Need Music?</h1>
-    <p class="lead">Use SpotifyApp to browse new releases and find music!</p>
+    <h1>What would you like to listen to?</h1>
+    <p>Search music by track, artist, or playlist keywords!</p>
 
     <form>
         <h5>Songs:</h5>
         <div class="form-group">
             <input type="text" name="trackSearchStr" class="form-control"
-                    [disabled]="!isLoggedIn"
                     [(ngModel)]="trackSearchStr"
                     (keyup)="searchTracks()"
                     [ngbTypeahead]="searchTrack"
                     [resultTemplate]="trackRT"
                     (selectItem)="onTrackSelect($event)"
                     [inputFormatter]="trackFormatter"
-                    placeholder="Search Music...">
+                    placeholder="Search Tracks...">
         </div><br>
         <h5>Artists:</h5>
         <div class="form-group">
             <input type="text" name="artistSearchStr" class="form-control"
-                    [disabled]="!isLoggedIn"
                     [(ngModel)]="artistSearchStr"
                     (keyup)="searchArtists()"
                     [ngbTypeahead]="searchArtist"
@@ -33,6 +26,17 @@
                     (selectItem)="onArtistSelect($event)"
                     [inputFormatter]="artistFormatter"
                     placeholder="Search Artists...">
+        </div><br>
+        <h5>Playlists:</h5>
+        <div class="form-group">
+            <input type="text" name="playlistSearchStr" class="form-control"
+                    [(ngModel)]="playlistSearchStr"
+                    (keyup)="searchPlaylists()"
+                    [ngbTypeahead]="searchPlaylist"
+                    [resultTemplate]="playlistRT"
+                    (selectItem)="onPlaylistSelect($event)"
+                    [inputFormatter]="artistFormatter"
+                    placeholder="Search Playlists...">
         </div>
     </form>
 
@@ -49,5 +53,12 @@
         <i *ngIf="r.album.images.length == 0" class="fas fa-search me-1" style="width: 50px; text-align: center; float: left"></i>
         <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight><br>
         <span *ngFor="let artist of r.artists; let isLast=last"><small>{{artist.name}}{{isLast ? '' : ', '}}</small></span>
+    </ng-template>
+
+    <ng-template #playlistRT let-r="result" let-t="term">
+        <img *ngIf="r.images.length > 0" [src]="r.images[0].url" class="me-1" style="width: 50px; float: left"/>
+        <i *ngIf="r.images.length == 0" class="fas fa-search me-1" style="width: 50px; text-align: center; float: left"></i>
+        <ngb-highlight [result]="r.name" [term]="t"></ngb-highlight><br>
+        <span><small>{{r.owner.display_name}}</small></span>
     </ng-template>
 </div>

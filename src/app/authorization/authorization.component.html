@@ -7,19 +7,7 @@
         </div>
         <form>
         <div class="form-group">
-                <label class="form-label mt-4">To use Spotify features, please enter your Spotify Client ID and Client Secret:</label>
-                <input type="text" name="clientID" [disabled]="isLoggedIn" [(ngModel)]="clientID" class="form-control"
-                        placeholder="Enter Spotify Client ID..."><br>
-                <input type="text" name="clientSecret" [disabled]="isLoggedIn" [(ngModel)]="clientSecret" class="form-control"
-                        placeholder="Enter Spotify Client Secret...">
-                <label class="form-label mt-4">To use YouTube features, please enter your Google API key:</label>
-                <input type="text" name="apiKey" [disabled]="isLoggedIn" [(ngModel)]="apiKey" class="form-control"
-                        placeholder="Enter Google API key..."><br><br>   
                 <button class="btn btn-primary" [disabled]="isLoggedIn" (click)="onClick()">Login</button>
-        </div>
-        <div *ngIf="allFilled === false" class="alert alert-dismissible alert-danger">
-                <button type="button" class="btn-close" data-bs-dismiss="alert" (click)="allFilled=!allFilled"></button>
-                <strong>Please fill in all fields to sign in!</strong>
         </div>
         </form>
 </div>

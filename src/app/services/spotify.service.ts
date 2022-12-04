@@ -4,13 +4,15 @@ import { Observable } from 'rxjs';
 import { Buffer } from 'buffer';
 import { Router } from '@angular/router';
 import { variables } from 'src/environments/variables';
+
 @Injectable()
 export class SpotifyService {
-    private clientID: any;
-    private clientSecret: any;
+    private clientID = variables.SPOTIFY_CLIENT_ID;
+    private clientSecret = variables.SPOTIFY_CLIENT_SECRET;
     private accessToken: any;
     private refreshToken: any;
     private tokenExpiryTime: any;
+    private tempToken: any;
 
     isFirstLoadAfterLogin: boolean;
 
@@ -27,17 +29,12 @@ export class SpotifyService {
     }
 
     logout() {
-        localStorage.removeItem("client_id");
-        localStorage.removeItem("client_secret");
         localStorage.removeItem("access_token");
         localStorage.removeItem("refresh_token");
         localStorage.removeItem("tokenExpiryTime");
     }
 
     onPageLoad() {
-        console.log(variables.GOOGLE_API_KEY);
-        this.clientID = localStorage.getItem("client_id");
-        this.clientSecret = localStorage.getItem("client_secret");
         this.accessToken = localStorage.getItem("access_token");
         if (window.location.search.length > 0) {
             this.handleRedirect();
@@ -51,11 +48,9 @@ export class SpotifyService {
         }
     }
 
-    requestAuthorization(clientID: string, clientSecret: string) {
-        localStorage.setItem("client_id", clientID);
-        localStorage.setItem("client_secret", clientSecret);
+    requestAuthorization() {
         let scope = 'user-read-email user-read-private user-top-read user-read-recently-played playlist-read-private playlist-read-collaborative';
-        const url = 'https://accounts.spotify.com/authorize?'+'client_id='+clientID+
+        const url = 'https://accounts.spotify.com/authorize?'+'client_id='+this.clientID+
             '&response_type=code&scope='+scope+'&redirect_uri='+this.redirectUri+'&show_dialog=true';
         window.location.href = url;
     }
@@ -84,7 +79,6 @@ export class SpotifyService {
 
     refreshAccessToken(){
         this.refreshToken = localStorage.getItem("refresh_token");
-        this.clientID = localStorage.getItem("client_id")
         let body = 'grant_type=refresh_token&refresh_token='+this.refreshToken+'&client_id='+this.clientID;
         this.callAuthorizationAPI(body);
     }
@@ -120,17 +114,44 @@ export class SpotifyService {
         }
     }
 
+    // For users who have not logged in: (Client Crednetials authorization)
+    getAuthorization(){
+        const authorizationTokenUrl = 'https://accounts.spotify.com/api/token';
+        var body = 'grant_type=client_credentials';
+        return this.http.post(authorizationTokenUrl, body, {
+            headers: new HttpHeaders({
+                'Authorization': 'Basic ' + Buffer.from(this.clientID + ':' + this.clientSecret).toString('base64'),
+                'Content-Type': 'application/x-www-form-urlencoded',
+            }),
+        });
+    }
+
     callGetAPI(url: string): Observable<any> {
         const d = new Date();
         this.tokenExpiryTime = localStorage.getItem("tokenExpiryTime");
-        if (this.tokenExpiryTime <= d.getTime()) {
+        // If not logged in yet
+        if (!this.tokenExpiryTime && !this.tempToken) {
+            this.getAuthorization().subscribe((data: any) =>
+            {
+                this.tempToken = data.access_token;
+            });
+        } else if (this.tokenExpiryTime && this.tokenExpiryTime <= d.getTime()) {
             this.refreshAccessToken();
         }
-        return this.http.get<any>(url, {
-            headers: new HttpHeaders({
-                'Authorization': 'Bearer ' + this.accessToken,
-            })
-        });
+
+        if (!this.tokenExpiryTime) {
+            return this.http.get<any>(url, {
+                headers: new HttpHeaders({
+                    'Authorization': 'Bearer ' + this.tempToken,
+                })
+            });
+        } else {
+            return this.http.get<any>(url, {
+                headers: new HttpHeaders({
+                    'Authorization': 'Bearer ' + this.accessToken,
+                })
+            });
+        }
     }
 
     searchItems(str: string, type: string): Observable<any> {
@@ -172,5 +193,4 @@ export class SpotifyService {
     getPlaylist(id: string): Observable<any> {
         return this.callGetAPI('https://api.spotify.com/v1/playlists/'+id);
     }
-
 }
