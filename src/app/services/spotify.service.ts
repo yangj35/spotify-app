@@ -16,7 +16,7 @@ export class SpotifyService {
 
     isFirstLoadAfterLogin: boolean;
 
-    private redirectUri = 'http://localhost:4200'
+    private redirectUri = 'https://spotifyapp-369002.firebaseapp.com'
 
     constructor(
         private http: HttpClient,
