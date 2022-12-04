@@ -10,6 +10,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-builders/custom-webpack": "^14.1.0",
     "@angular/animations": "^14.2.0",
     "@angular/common": "^14.2.0",
     "@angular/compiler": "^14.2.0",
@@ -21,12 +22,14 @@
     "@ng-bootstrap/ng-bootstrap": "^13.1.0",
     "@popperjs/core": "^2.10.2",
     "bootstrap": "^5.2.2",
+    "dotenv": "^16.0.3",
     "font-awesome": "^4.7.0",
     "google-auth-library": "^8.7.0",
     "googleapis": "^109.0.1",
     "lyrics-finder": "^21.7.0",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
+    "yargs": "^17.6.2",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

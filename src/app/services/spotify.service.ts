@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Buffer } from 'buffer';
 import { Router } from '@angular/router';
-
+import { variables } from 'src/environments/variables';
 @Injectable()
 export class SpotifyService {
     private clientID: any;
@@ -35,6 +35,7 @@ export class SpotifyService {
     }
 
     onPageLoad() {
+        console.log(variables.GOOGLE_API_KEY);
         this.clientID = localStorage.getItem("client_id");
         this.clientSecret = localStorage.getItem("client_secret");
         this.accessToken = localStorage.getItem("access_token");
