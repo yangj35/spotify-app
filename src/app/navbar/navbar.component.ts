@@ -8,7 +8,7 @@ import { YoutubeService } from 'src/app/services/youtube.service';
   templateUrl: 'navbar.component.html',
 })
 export class NavbarComponent implements OnInit {
-  isLoggedIn: boolean;
+  isLoggedIntoSpotify: boolean;
   logoutClicked: boolean;
 
   user: any;
@@ -20,22 +20,20 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit() {
-      this.isLoggedIn = this.spotifyService.isLoggedIn() && this.youtubeService.isLoggedIn();
-      if (this.isLoggedIn) {
-        this.spotifyService.getCurrentUser().subscribe(user => {
-          this.user =  user;
-        });
-      }
+      this.isLoggedIntoSpotify = this.spotifyService.isLoggedIn();
     }
 
     onClickLogout() {
       this.spotifyService.logout();
-      this.youtubeService.logout();
-      this.isLoggedIn = false;
+      this.isLoggedIntoSpotify = false;
       this.logoutClicked = true;
       setTimeout(() => {
         window.location.reload();
       }, 5000);
+    }
+
+    onClickLogin() {
+      this.spotifyService.requestAuthorization();
     }
 
     reloadPage() {

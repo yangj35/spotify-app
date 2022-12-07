@@ -15,8 +15,8 @@ export class SpotifyService {
     private tempToken: any;
 
     isFirstLoadAfterLogin: boolean;
-
-    private redirectUri = 'https://spotifyapp-369002.firebaseapp.com'
+    // https://spotifyapp-369002.firebaseapp.com
+    private redirectUri = 'http://localhost:4200'
 
     constructor(
         private http: HttpClient,

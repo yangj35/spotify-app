@@ -15,13 +15,6 @@ export class YoutubeService {
 
     }
 
-    isLoggedIn() {
-        return this.apiKey ? true: false;
-    }
-
-    logout() {
-    }
-
     searchYoutube (str: string): Observable<any> {
         return this.http.get('https://www.googleapis.com/youtube/v3/search?q='
             +str+'&type=video'+'&key='+this.apiKey);

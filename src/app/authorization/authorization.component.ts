@@ -17,7 +17,7 @@ export class AuthorizationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.isLoggedIn = this.spotifyService.isLoggedIn() && this.youtubeService.isLoggedIn();
+    this.isLoggedIn = this.spotifyService.isLoggedIn();
   }
 
   onClick() {
