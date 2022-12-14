@@ -15,7 +15,7 @@
           "options": {
             "allowedCommonJsDependencies": [
               "buffer"
-           ],
+            ],
             "outputPath": "dist/spotify-app",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -98,6 +98,16 @@
               "src/styles.css"
             ],
             "scripts": []
+          }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "prerender": false,
+            "ssr": false,
+            "browserTarget": "spotify-app:build:production",
+            "firebaseProject": "spotifyapp-369002",
+            "firebaseHostingSite": "spotifyapp-369002"
           }
         }
       }

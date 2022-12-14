@@ -42,3 +42,7 @@ testem.log
 Thumbs.db
 
 variables.ts
+# Firebase
+.firebase
+*-debug.log
+.runtimeconfig.json

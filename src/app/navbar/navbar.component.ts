@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
+import { AuthService } from '../services/auth.service';
 import { SpotifyService } from 'src/app/services/spotify.service';
 import { YoutubeService } from 'src/app/services/youtube.service';
 
@@ -8,31 +9,42 @@ import { YoutubeService } from 'src/app/services/youtube.service';
   templateUrl: 'navbar.component.html',
 })
 export class NavbarComponent implements OnInit {
+  isLoggedIn: boolean;
   isLoggedIntoSpotify: boolean;
-  logoutClicked: boolean;
+  spotifyLogoutClicked: boolean;
 
   user: any;
 
   constructor(
+    private authService: AuthService,
     private spotifyService: SpotifyService,
     private youtubeService: YoutubeService) {
 
     }
 
     ngOnInit() {
+      this.isLoggedIn = this.authService.isLoggedIn();
       this.isLoggedIntoSpotify = this.spotifyService.isLoggedIn();
     }
 
-    onClickLogout() {
+    login() {
+      this.authService.login();
+    }
+
+    logout() {
+      this.authService.logout();
+    }
+
+    spotifyLogout() {
       this.spotifyService.logout();
       this.isLoggedIntoSpotify = false;
-      this.logoutClicked = true;
+      this.spotifyLogoutClicked = true;
       setTimeout(() => {
         window.location.reload();
       }, 5000);
     }
 
-    onClickLogin() {
+    spotifyLogin() {
       this.spotifyService.requestAuthorization();
     }
 

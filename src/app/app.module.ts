@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { AngularFireModule } from '@angular/fire/compat';
 
 import { AboutComponent } from './about/about.component';
 import { AppComponent } from './app.component';
@@ -19,8 +20,13 @@ import { TrackComponent } from './track/track.component';
 import { TrackTableComponent } from './common/track-table.component';
 import { UserProfileComponent } from './user/user-profile.component';
 
+import { AuthService } from './services/auth.service';
 import { SpotifyService } from './services/spotify.service';
 import { YoutubeService } from './services/youtube.service';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideAuth,getAuth } from '@angular/fire/auth';
+import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -44,8 +50,13 @@ import { YoutubeService } from './services/youtube.service';
     FormsModule,
     AppRoutingModule,
     NgbModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth()),
+    provideFirestore(() => getFirestore()),
+    AngularFireModule.initializeApp(environment.firebase)
   ],
   providers: [
+    AuthService,
     SpotifyService,
     YoutubeService,
   ],

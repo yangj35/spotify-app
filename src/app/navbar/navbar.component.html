@@ -12,11 +12,11 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button">Spotify</a>
                     <div class="dropdown-menu">
-                        <a *ngIf="!isLoggedIntoSpotify" class="dropdown-item" (click)="onClickLogin()" role="button">Sign In</a>
+                        <a *ngIf="!isLoggedIntoSpotify" class="dropdown-item" (click)="spotifyLogin()" role="button">Sign In</a>
                         <a *ngIf="isLoggedIntoSpotify" class="dropdown-item" routerLink="/user-profile">Profile</a>
                         <a *ngIf="isLoggedIntoSpotify" class="dropdown-item" routerLink="/playlists">Playlists</a>
                         <div *ngIf="isLoggedIntoSpotify" class="dropdown-divider"></div>
-                        <a *ngIf="isLoggedIntoSpotify" class="dropdown-item" (click)="onClickLogout()" role="button">Log Out</a>
+                        <a *ngIf="isLoggedIntoSpotify" class="dropdown-item" (click)="spotifyLogout()" role="button">Log Out</a>
                     </div>
                 </li>
                 <li class="nav-item">
@@ -25,25 +25,17 @@
             </ul>
             <ul class="navbar-nav ms-md-auto">
                 <li class="nav-item">
-                    <button class="btn btn-secondary btn-sm" routerLink="/authorization">Sign In</button>
-                </li>
-                <li class="nav-item dropdown">
-                    <button class="btn btn-secondary btn-sm dropdown-toggle" data-bs-toggle="dropdown">
-                    </button>
-                    <div class="dropdown-menu">
-                        <a class="dropdown-item" routerLink="/user-profile">Profile</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" (click)="onClickLogout()" role="button">Log Out</a>
-                    </div>
+                    <button *ngIf="!isLoggedIn" class="btn btn-secondary btn-sm" (click)="login()">Sign in with Google</button>
+                    <button *ngIf="isLoggedIn" class="btn btn-secondary btn-sm" (click)="logout()">Log Out</button>
                 </li>
             </ul>
         </div>
     </div>  
 </div>
 
-<div *ngIf="logoutClicked" class="alert alert-dismissible alert-success">
+<div *ngIf="spotifyLogoutClicked" class="alert alert-dismissible alert-success">
     <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    <p style="text-align: center;">You have successfully logged out! Your page will now reload. 
+    <p style="text-align: center;">You have successfully logged out of Spotify! Your page will now reload. 
         <a class="text-hover" (click)="reloadPage()" role="button"><b> Reload Now</b></a></p>
 </div>
 

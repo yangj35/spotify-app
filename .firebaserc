@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "spotifyapp-369002"
+  },
+  "targets": {
+    "spotifyapp-369002": {
+      "hosting": {
+        "spotify-app": [
+          "spotifyapp-369002"
+        ]
+      }
+    }
   }
 }
