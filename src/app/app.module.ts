@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore/';
 
 import { AboutComponent } from './about/about.component';
 import { AppComponent } from './app.component';
@@ -12,6 +13,7 @@ import { AlbumComponent } from './album/album.component';
 import { ArtistComponent } from './artist/artist.component';
 import { AuthorizationComponent } from './authorization/authorization.component';
 import { HomeComponent } from './home/home.component';
+import { MessagingComponent } from './messaging/messaging.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { PlaylistComponent } from './playlists/playlist.component';
 import { PlaylistsComponent } from './playlists/playlists.component';
@@ -21,6 +23,7 @@ import { TrackTableComponent } from './common/track-table.component';
 import { UserProfileComponent } from './user/user-profile.component';
 
 import { AuthService } from './services/auth.service';
+import { DataService } from './services/data.service';
 import { SpotifyService } from './services/spotify.service';
 import { YoutubeService } from './services/youtube.service';
 import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
@@ -36,6 +39,7 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
     ArtistComponent,
     AuthorizationComponent,
     HomeComponent,
+    MessagingComponent,
     NavbarComponent,
     PlaylistComponent,
     PlaylistsComponent,
@@ -53,10 +57,12 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
-    AngularFireModule.initializeApp(environment.firebase)
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
   ],
   providers: [
     AuthService,
+    DataService,
     SpotifyService,
     YoutubeService,
   ],

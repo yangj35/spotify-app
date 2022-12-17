@@ -1,0 +1,16 @@
+<navbar></navbar>
+
+<div *ngIf="messagesData" class="main container">
+    <div *ngFor="let message of messagesData" class="row">
+        <span><img class="me-1 circle" style="width: 50px; float: inline-start" src="{{message.photoURL}}">
+            {{message.text}}
+            <i class="fa fa-times" style="float: inline-end" role="button" (click)="deleteMessage(message.id)"></i>
+        </span>
+    </div>
+    <form class="d-flex">
+        <input class="form-control me-sm-2" type="search" placeholder="Message..."
+                [(ngModel)]="message"
+                name="message">
+        <button class="btn btn-primary my-2 my-sm-0" [disabled]="!message" (click)="saveMessage()">Send</button>
+    </form>
+</div>

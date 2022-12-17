@@ -24,9 +24,12 @@
                 </li>
             </ul>
             <ul class="navbar-nav ms-md-auto">
+                <li class="nav-item" style="margin-top:2px; margin-right:10px">
+                    <a *ngIf="isLoggedIn" class="nav-link" routerLink="/messaging" role="button">Your Messages</a>
+                </li>
                 <li class="nav-item">
-                    <button *ngIf="!isLoggedIn" class="btn btn-secondary btn-sm" (click)="login()">Sign in with Google</button>
-                    <button *ngIf="isLoggedIn" class="btn btn-secondary btn-sm" (click)="logout()">Log Out</button>
+                    <button *ngIf="!isLoggedIn" class="btn btn-secondary my-2 my-sm-0" (click)="login()">Sign in with Google</button>
+                    <button *ngIf="isLoggedIn" class="btn btn-secondary my-2 my-sm-0" (click)="logout()">Log Out</button>
                 </li>
             </ul>
         </div>
@@ -38,5 +41,3 @@
     <p style="text-align: center;">You have successfully logged out of Spotify! Your page will now reload. 
         <a class="text-hover" (click)="reloadPage()" role="button"><b> Reload Now</b></a></p>
 </div>
-
-<!--<img class="me-1 circle" style="width: 30px; float: inline-start" src="{{user.images[0].url}}">-->
