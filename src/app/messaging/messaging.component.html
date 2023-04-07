@@ -2,14 +2,18 @@
 
 <div *ngIf="messagesData" class="main container">
     <div *ngFor="let message of messagesData" class="row">
-        <span style="text-align: right;">
-            <span class="sent message">{{message.text}}</span>
+        <span *ngIf="message.toUid===currentUser">
+            <span class="received">{{message.text}}</span>
+        </span>        
+        <span *ngIf="message.fromUid===currentUser && message.fromUid!==message.toUid">
+            <span class="sent">{{message.text}}</span>
         </span>
     </div>
     <form class="d-flex">
         <input class="form-control me-sm-2" type="search" placeholder="Message..."
                 [(ngModel)]="message"
-                name="message">
+                name="message"
+                autocomplete="off">
         <button class="btn btn-primary my-2 my-sm-0" [disabled]="!message" (click)="saveMessage()">Send</button>
     </form>
 </div>

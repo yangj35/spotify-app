@@ -12,7 +12,8 @@ import { PlaylistComponent } from './playlists/playlist.component';
 import { PlaylistsComponent } from './playlists/playlists.component';
 import { TrackComponent } from './track/track.component';
 import { UserProfileComponent } from './user/user-profile.component';
-import { MessagingHomeComponent } from './messaging/messaging-home.component';
+import { MessagingHomeComponent } from './messaging/messaging-home.component'
+import { NewUserComponent } from './authorization/new-user.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'user-profile', component: UserProfileComponent },
   { path: 'messaging-home', component: MessagingHomeComponent },
   { path: 'messaging', component: MessagingComponent},
+  { path: 'new-user', component: NewUserComponent},
 ];
 
 @NgModule({

@@ -1,0 +1,22 @@
+.sent {
+  max-width: 500px;
+  margin-bottom: 12px;
+  line-height: 24px;
+  padding: 10px 20px;
+  border-radius: 25px;
+  position: relative;
+  float: right;
+  background: #0b93f6;
+}
+
+.received {
+  max-width: 500px;
+  margin-bottom: 12px;
+  line-height: 24px;
+  padding: 10px 20px;
+  border-radius: 25px;
+  position: relative;
+  float: left;
+  background: white;
+  color: black;
+}

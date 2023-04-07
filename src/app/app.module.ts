@@ -16,6 +16,7 @@ import { HomeComponent } from './home/home.component';
 import { MessagingComponent } from './messaging/messaging.component';
 import { MessagingHomeComponent } from './messaging/messaging-home.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { NewUserComponent } from './authorization/new-user.component';
 import { PlaylistComponent } from './playlists/playlist.component';
 import { PlaylistsComponent } from './playlists/playlists.component';
 import { SearchComponent } from './search/search.component';
@@ -43,6 +44,7 @@ import { provideFirestore,getFirestore } from '@angular/fire/firestore';
     MessagingComponent,
     MessagingHomeComponent,
     NavbarComponent,
+    NewUserComponent,
     PlaylistComponent,
     PlaylistsComponent,
     SearchComponent,

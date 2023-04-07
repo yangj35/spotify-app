@@ -5,10 +5,13 @@ import { map } from 'rxjs';
 @Component({
   selector: 'messaging',
   templateUrl: 'messaging.component.html',
+  styleUrls: ['messaging.component.css']
 })
 export class MessagingComponent implements OnInit {
     messagesData: any;
     message: any;
+
+    readonly currentUser: any = localStorage.getItem("google_auth_uid");
 
     constructor(
         private dataService: DataService,
@@ -16,23 +19,23 @@ export class MessagingComponent implements OnInit {
     }
 
     ngOnInit(){
-        this.dataService.getAll().snapshotChanges().pipe(
+        this.dataService.getAllMessages().snapshotChanges().pipe(
             map(changes => 
                 changes.map(c => 
                     ({id: c.payload.doc.id, ...c.payload.doc.data()})
                 )
             )
         ).subscribe(data => {
-            this.messagesData = data;
+            this.messagesData = data.filter((msg: any) => msg.toUid === this.currentUser || msg.fromUid === this.currentUser);
             console.log(this.messagesData);
         });
     }
 
     saveMessage() {
-        this.dataService.create(this.message);
+        this.dataService.createMessage(this.message);
     }
 
     deleteMessage(id: string) {
-        this.dataService.delete(id);
+        this.dataService.deleteMessage(id);
     }
 }
