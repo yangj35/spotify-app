@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit {
   isLoggedIntoSpotify: boolean;
   spotifyLogoutClicked: boolean;
 
-  user: any;
+  currentUserFirstName: string;
 
   constructor(
     private authService: AuthService,
@@ -30,27 +30,32 @@ export class NavbarComponent implements OnInit {
       this.isLoggedIn = this.authService.isLoggedIn();
       this.isLoggedIntoSpotify = this.spotifyService.isLoggedIn();
 
-      this.dataService.getAllUsers().snapshotChanges().pipe(
-        map(changes => 
-            changes.map(c => 
-                ({id: c.payload.doc.id, ...c.payload.doc.data()})
-            )
-        )
-      ).subscribe(data => {
-          this.user = data.find(user => user.uid === localStorage.getItem("google_auth_uid"));
-      });
-    }
-
-    async login() {
-      await this.authService.login();
-      if (!this.user){
-        this.router.navigate(['new-user']);
+      // Create user for new users
+      if (this.isLoggedIn) {
+        this.dataService.getAllUsers().snapshotChanges().pipe(
+          map(changes => 
+              changes.map(c => 
+                  ({id: c.payload.doc.id, ...c.payload.doc.data()})
+              )
+          )
+        ).subscribe(users => {
+          let currentUser = users.find(user => user.uid === localStorage.getItem("google_auth_uid"));
+          if (!currentUser) {
+            this.router.navigate(['new-user']);
+          } else {
+            this.currentUserFirstName = currentUser.firstName;
+          }
+        });
       }
-      console.log(this.user);
     }
 
-    logout() {
-      this.authService.logout();
+    login() {
+      this.authService.login();
+    }
+
+    async logout() {
+      await this.authService.logout();
+      this.router.navigate(['']);
     }
 
     spotifyLogout() {

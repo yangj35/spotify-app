@@ -27,7 +27,6 @@ export class MessagingComponent implements OnInit {
             )
         ).subscribe(data => {
             this.messagesData = data.filter((msg: any) => msg.toUid === this.currentUser || msg.fromUid === this.currentUser);
-            console.log(this.messagesData);
         });
     }
 
